@@ -9,14 +9,14 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем GeoIP C API
-RUN wget http://geolite.maxmind.com/download/geoip/api/c/GeoIP-1.4.8.tar.gz && \
-    tar -xzf GeoIP-1.4.8.tar.gz && \
-    cd GeoIP-1.4.8 && \
+# Устанавливаем GeoIP C API из альтернативного URL
+RUN wget https://github.com/maxmind/geoip-api-c/archive/refs/tags/v1.6.9.tar.gz -O GeoIP-1.6.9.tar.gz && \
+    tar -xzf GeoIP-1.6.9.tar.gz && \
+    cd geoip-api-c-1.6.9 && \
     ./configure && \
     make && \
     make install && \
-    rm -rf /GeoIP-1.4.8* 
+    rm -rf geoip-api-c-1.6.9 geoip-1.6.9.tar.gz
 
 # Устанавливаем зависимости Python
 COPY pip-req.txt /app/pip-req.txt
